@@ -1,11 +1,11 @@
 import './App.css';
 import DraftBoard from './components/DraftBoard';
+import Description from './components/Description';
 
 function App() {
   return (
     <div className="App">
-      <h1>NBA Draft App</h1>
-      <DraftBoard />
+      <Description />
     </div>
   );
 }
