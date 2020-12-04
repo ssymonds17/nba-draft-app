@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Data from '../data/PlayerData.json';
+import PlayerData from '../data/PlayerData.json';
 
 export default function DraftBoard() {
- const data = Data;
+ const data = PlayerData;
  return <table>
   <thead>
    <tr>
