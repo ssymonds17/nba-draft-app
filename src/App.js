@@ -1,11 +1,18 @@
 import './App.css';
-import DraftBoard from './components/DraftBoard';
 import Description from './components/Description';
+import TeamSelection from './components/TeamSelection';
+import DraftView from './components/DraftView';
 
 function App() {
   return (
     <div className="App">
-      <Description />
+      <div className="landing-page">
+        <Description />
+        <TeamSelection />
+      </div>
+      <div className="draft-page">
+        <DraftView />
+      </div>
     </div>
   );
 }
