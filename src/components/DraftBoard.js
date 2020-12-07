@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from 'react-bootstrap/Table';
 
 import PlayerData from '../data/PlayerData.json';
 
@@ -6,7 +7,7 @@ export default function DraftBoard() {
  const data = PlayerData;
  return <div>
   <h2>Draft Board</h2>
-  <table style={{ height: '80%' }}>
+  <Table responsive bordered style={{ height: '500px', display: 'block', overflowY: 'auto' }}>
    <thead>
     <tr>
      <th>Player</th>
@@ -25,6 +26,6 @@ export default function DraftBoard() {
      ))
     }
    </tbody>
-  </table>
+  </Table>
  </div>
 }
