@@ -1,13 +1,14 @@
 import React from 'react';
 import DraftBoard from './DraftBoard';
+import UserTeam from './UserTeam';
 
 export default function DraftView() {
- return <div style={{ display: 'flex', justifyContent: 'center' }}>
-  <div className="upper-container">
+ return <div style={{ display: 'flex' }}>
+  <div className="left-container">
    <DraftBoard />
-   <div>User's Team</div>
+   <UserTeam />
   </div>
-  <div className="lower-container">
+  <div className="right-container">
    <div>Draft Order</div>
    <div>Opponent's Team</div>
   </div>
