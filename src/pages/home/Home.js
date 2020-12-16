@@ -1,5 +1,5 @@
 import React from 'react';
-import teams from '../../data/teams.json';
+import teams from '../../data/teams';
 import { useGlobalContext } from '../../context';
 
 const Home = () => {
@@ -18,7 +18,7 @@ const Home = () => {
       </section>
       <section>
         <header>
-          <h2>select a team location</h2>
+          {!userLocation && <h2>select a team location</h2>}
           {userLocation && (
             <button
               onClick={() => chooseOpponents(data, userLocation.conference)}
