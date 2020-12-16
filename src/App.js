@@ -1,19 +1,11 @@
-import './App.css';
-import Description from './components/Description';
-import TeamSelection from './components/TeamSelection';
-import DraftView from './components/DraftView';
+import React from 'react';
+import Home from './pages/home/Home';
 
 function App() {
   return (
-    <div className="App">
-      <div className="landing-page">
-        <Description />
-        <TeamSelection />
-      </div>
-      <div className="draft-page">
-        <DraftView />
-      </div>
-    </div>
+    <>
+      <Home />
+    </>
   );
 }
 
