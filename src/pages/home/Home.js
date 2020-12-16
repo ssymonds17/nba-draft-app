@@ -3,7 +3,8 @@ import teams from '../../data/teams.json';
 import { useGlobalContext } from '../../context';
 
 const Home = () => {
-  const { userLocation, chooseLocation } = useGlobalContext();
+  const { userLocation, chooseLocation, chooseOpponents } = useGlobalContext();
+  const data = teams;
 
   return (
     <main>
@@ -16,16 +17,26 @@ const Home = () => {
         </p>
       </section>
       <section>
-        <h2>select a team location</h2>
-        <h4>selected location: {userLocation}</h4>
-        {teams.map((location) => {
-          const { city, id } = location;
-          return (
-            <button key={id} onClick={() => chooseLocation(city)}>
-              {city}
+        <header>
+          <h2>select a team location</h2>
+          {userLocation && (
+            <button
+              onClick={() => chooseOpponents(data, userLocation.conference)}
+            >
+              select {userLocation.city}?
             </button>
-          );
-        })}
+          )}
+        </header>
+        <div>
+          {data.map((location) => {
+            const { city, id } = location;
+            return (
+              <button key={id} onClick={() => chooseLocation(location)}>
+                {city}
+              </button>
+            );
+          })}
+        </div>
       </section>
     </main>
   );
