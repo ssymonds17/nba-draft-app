@@ -14,7 +14,8 @@ const DraftBoard = () => {
     availablePlayers,
     updateAvailablePlayers,
     userVisiblePlayers,
-    setUserVisiblePlayers
+    setUserVisiblePlayers,
+    selectUserPlayers
   } = useGlobalContext();
   // Need to figure out how to stop returning to 'all' view after a player has been selected (maybe in action after a player is picked the computer will start picking so by the time it comes back to the user it wouldn't be so strange to be back on all players)
   const [positions, setPositions] = useState(allPositions);
@@ -40,6 +41,7 @@ const DraftBoard = () => {
       <UserVisiblePlayers
         userVisiblePlayers={userVisiblePlayers}
         updateAvailablePlayers={updateAvailablePlayers}
+        selectUserPlayers={selectUserPlayers}
       />
     </section>
   );

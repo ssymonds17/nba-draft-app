@@ -1,6 +1,14 @@
 import React from 'react';
 
-const UserVisiblePlayers = ({ userVisiblePlayers, updateAvailablePlayers }) => {
+const UserVisiblePlayers = ({
+  userVisiblePlayers,
+  updateAvailablePlayers,
+  selectUserPlayers
+}) => {
+  const handleClick = (player) => {
+    updateAvailablePlayers(player.id);
+    selectUserPlayers(player);
+  };
   return (
     <table>
       <thead>
@@ -15,7 +23,7 @@ const UserVisiblePlayers = ({ userVisiblePlayers, updateAvailablePlayers }) => {
           const { id, name, position, year_from, year_to } = player;
           return (
             <tr key={id}>
-              <td onClick={() => updateAvailablePlayers(id)}>{name}</td>
+              <td onClick={() => handleClick(player)}>{name}</td>
               <td>{position}</td>
               <td>
                 {year_from}-{year_to}
