@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Positions = ({ positions, filterPositions }) => {
+const Positions = ({ positions, filterByPosition }) => {
   return (
     <div>
       {positions.map((position, index) => {
@@ -8,7 +8,7 @@ const Positions = ({ positions, filterPositions }) => {
           <button
             type='button'
             key={index}
-            onClick={() => filterPositions(position)}
+            onClick={() => filterByPosition(position)}
           >
             {position}
           </button>

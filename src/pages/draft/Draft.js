@@ -8,7 +8,6 @@ import SingleOppTeamBoard from './SingleOppTeamBoard';
 const Draft = () => {
   return (
     <>
-      <h1>Draft Component</h1>
       <DraftBoard />
       <DraftOrder />
       <UserTeamBoard />

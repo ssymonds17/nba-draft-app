@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-const AvailablePlayers = ({ availablePlayers }) => {
+const UserAvailablePlayers = ({
+  userAvailablePlayers,
+  updateAvailablePlayers
+}) => {
   return (
     <table>
       <thead>
@@ -11,11 +14,11 @@ const AvailablePlayers = ({ availablePlayers }) => {
         </tr>
       </thead>
       <tbody>
-        {availablePlayers.map((player) => {
+        {userAvailablePlayers.map((player) => {
           const { id, name, position, year_from, year_to } = player;
           return (
             <tr key={id}>
-              <td>{name}</td>
+              <td onClick={() => updateAvailablePlayers(id)}>{name}</td>
               <td>{position}</td>
               <td>
                 {year_from}-{year_to}
@@ -28,4 +31,4 @@ const AvailablePlayers = ({ availablePlayers }) => {
   );
 };
 
-export default AvailablePlayers;
+export default UserAvailablePlayers;
