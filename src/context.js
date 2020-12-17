@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import players from './data/player';
 
 const AppContext = React.createContext();
@@ -7,6 +7,9 @@ const AppProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [competingLocations, setCompetingLocations] = useState([]);
   const [availablePlayers, setAvailablePlayers] = useState(players);
+  const [userVisiblePlayers, setUserVisiblePlayers] = useState(
+    availablePlayers
+  );
 
   const chooseLocation = (location) => {
     setUserLocation(location);
@@ -21,6 +24,10 @@ const AppProvider = ({ children }) => {
     const newList = availablePlayers.filter((player) => player.id !== id);
     setAvailablePlayers(newList);
   };
+  useEffect(() => {
+    setUserVisiblePlayers(availablePlayers);
+  }, [availablePlayers]);
+
   return (
     <AppContext.Provider
       value={{
@@ -28,7 +35,9 @@ const AppProvider = ({ children }) => {
         chooseLocation,
         chooseOpponents,
         availablePlayers,
-        updateAvailablePlayers
+        updateAvailablePlayers,
+        userVisiblePlayers,
+        setUserVisiblePlayers
       }}
     >
       {children}

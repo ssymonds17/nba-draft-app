@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-const UserAvailablePlayers = ({
-  userAvailablePlayers,
-  updateAvailablePlayers
-}) => {
+const UserVisiblePlayers = ({ userVisiblePlayers, updateAvailablePlayers }) => {
   return (
     <table>
       <thead>
@@ -14,7 +11,7 @@ const UserAvailablePlayers = ({
         </tr>
       </thead>
       <tbody>
-        {userAvailablePlayers.map((player) => {
+        {userVisiblePlayers.map((player) => {
           const { id, name, position, year_from, year_to } = player;
           return (
             <tr key={id}>
@@ -31,4 +28,4 @@ const UserAvailablePlayers = ({
   );
 };
 
-export default UserAvailablePlayers;
+export default UserVisiblePlayers;

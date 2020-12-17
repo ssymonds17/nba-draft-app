@@ -1,17 +1,16 @@
 import React from 'react';
 import DraftBoard from './DraftBoard';
 import DraftOrder from './DraftOrder';
-import UserTeamBoard from './UserTeamBoard';
-import OpponentsTeamBoard from './OpponentsTeamBoard';
-import SingleOppTeamBoard from './SingleOppTeamBoard';
+import ListOfOpponents from './ListOfOpponents';
+import SingleTeamPlayers from './SingleTeamPlayers';
 
 const Draft = () => {
   return (
     <>
       <DraftBoard />
       <DraftOrder />
-      <UserTeamBoard />
-      <OpponentsTeamBoard />
+      <SingleTeamPlayers />
+      <ListOfOpponents />
     </>
   );
 };
