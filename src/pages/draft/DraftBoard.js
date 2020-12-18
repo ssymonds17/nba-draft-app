@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Positions from './Positions.js';
 import UserVisiblePlayers from './UserVisiblePlayers.js';
 import { useGlobalContext } from '../../context.js';
@@ -11,26 +11,28 @@ const allPositions = [
 
 const DraftBoard = () => {
   const {
-    availablePlayers,
     updateAvailablePlayers,
-    userVisiblePlayers,
-    setUserVisiblePlayers,
+    draftablePlayers,
+    updateDraftablePlayers,
     selectUserPlayers
   } = useGlobalContext();
-  // Need to figure out how to stop returning to 'all' view after a player has been selected (maybe in action after a player is picked the computer will start picking so by the time it comes back to the user it wouldn't be so strange to be back on all players)
   const [positions, setPositions] = useState(allPositions);
+  const [visiblePlayers, setVisiblePlayers] = useState(draftablePlayers);
 
   const filterByPosition = (position) => {
     if (position === 'all') {
-      setUserVisiblePlayers(availablePlayers);
+      setVisiblePlayers(draftablePlayers);
       return;
     }
-    const newPlayers = availablePlayers.filter(
+    const newPlayers = draftablePlayers.filter(
       (player) => player.position === position
     );
-    setUserVisiblePlayers(newPlayers);
-    // Need to check if the resulting filtered list is empty then display to the user "You have already selected two {position}"
+    setVisiblePlayers(newPlayers);
   };
+
+  useEffect(() => {
+    setVisiblePlayers(draftablePlayers);
+  }, [draftablePlayers]);
 
   return (
     <section style={{ border: 'solid black 3px' }}>
@@ -39,8 +41,9 @@ const DraftBoard = () => {
       </header>
       <Positions positions={positions} filterByPosition={filterByPosition} />
       <UserVisiblePlayers
-        userVisiblePlayers={userVisiblePlayers}
+        visiblePlayers={visiblePlayers}
         updateAvailablePlayers={updateAvailablePlayers}
+        updateDraftablePlayers={updateDraftablePlayers}
         selectUserPlayers={selectUserPlayers}
       />
     </section>

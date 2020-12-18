@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import players from './data/player';
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [userLocation, setUserLocation] = useState(null); //Reset default value after draftboard dev is complete
+  const [userLocation, setUserLocation] = useState(null);
   const [competingLocations, setCompetingLocations] = useState([]);
   const [availablePlayers, setAvailablePlayers] = useState(players);
-  const [userVisiblePlayers, setUserVisiblePlayers] = useState(
-    availablePlayers
-  );
+  const [draftablePlayers, setDraftablePlayers] = useState(players);
   const [userSquad, setUserSquad] = useState({
     PG: [],
     SG: [],
@@ -34,9 +32,23 @@ const AppProvider = ({ children }) => {
   const selectUserPlayers = (player) => {
     userSquad[player.position].push(player);
   };
-  useEffect(() => {
-    setUserVisiblePlayers(availablePlayers);
-  }, [availablePlayers]);
+  const updateDraftablePlayers = (id) => {
+    let freePositions = [];
+    for (const position in userSquad) {
+      if (userSquad[position].length < 2) {
+        freePositions.push(position);
+      }
+    }
+    const filterChosenPlayer = availablePlayers.filter(
+      (player) => player.id !== id
+    );
+    let newDraftablePlayers = freePositions
+      .map((position) =>
+        filterChosenPlayer.filter((player) => player.position === position)
+      )
+      .flat();
+    setDraftablePlayers(newDraftablePlayers);
+  };
 
   return (
     <AppContext.Provider
@@ -46,8 +58,8 @@ const AppProvider = ({ children }) => {
         chooseOpponents,
         availablePlayers,
         updateAvailablePlayers,
-        userVisiblePlayers,
-        setUserVisiblePlayers,
+        draftablePlayers,
+        updateDraftablePlayers,
         userSquad,
         selectUserPlayers
       }}

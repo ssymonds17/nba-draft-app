@@ -1,14 +1,23 @@
 import React from 'react';
 
 const UserVisiblePlayers = ({
-  userVisiblePlayers,
+  visiblePlayers,
   updateAvailablePlayers,
+  updateDraftablePlayers,
   selectUserPlayers
 }) => {
   const handleClick = (player) => {
-    updateAvailablePlayers(player.id);
     selectUserPlayers(player);
+    updateAvailablePlayers(player.id);
+    updateDraftablePlayers(player.id);
   };
+  if (visiblePlayers.length < 1) {
+    return (
+      <section>
+        <p>Two players have already been selected</p>
+      </section>
+    );
+  }
   return (
     <table>
       <thead>
@@ -19,7 +28,7 @@ const UserVisiblePlayers = ({
         </tr>
       </thead>
       <tbody>
-        {userVisiblePlayers.map((player) => {
+        {visiblePlayers.map((player) => {
           const { id, name, position, year_from, year_to } = player;
           return (
             <tr key={id}>
