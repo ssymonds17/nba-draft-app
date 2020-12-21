@@ -14,7 +14,7 @@ const UserVisiblePlayers = ({
   if (visiblePlayers.length < 1) {
     return (
       <section>
-        <p>Two players have already been selected</p>
+        <p>Two players have already been drafted at this position</p>
       </section>
     );
   }

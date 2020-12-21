@@ -20,10 +20,15 @@ const AppProvider = ({ children }) => {
     setUserLocation(location);
   };
   const chooseOpponents = (teams, conference) => {
-    const filteredByConf = teams.filter(
-      (team) => team.conference === conference
-    );
-    setCompetingLocations(filteredByConf);
+    const filterAndRandom = teams
+      .filter((team) => team.conference === conference)
+      .sort(() => Math.random() - 0.5);
+    let newOrder = [];
+    filterAndRandom.forEach((location, index) => {
+      location.team_number = index + 1;
+      newOrder.push(location);
+    });
+    setCompetingLocations(newOrder);
   };
   const updateAvailablePlayers = (id) => {
     const newList = availablePlayers.filter((player) => player.id !== id);
@@ -55,6 +60,7 @@ const AppProvider = ({ children }) => {
       value={{
         userLocation,
         chooseLocation,
+        competingLocations,
         chooseOpponents,
         availablePlayers,
         updateAvailablePlayers,

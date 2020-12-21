@@ -7,10 +7,14 @@ import SingleTeamPlayers from './SingleTeamPlayers';
 const Draft = () => {
   return (
     <>
-      <DraftBoard />
-      <DraftOrder />
-      <SingleTeamPlayers />
-      <ListOfOpponents />
+      <div style={{ display: 'flex' }}>
+        <DraftBoard />
+        <DraftOrder />
+      </div>
+      <div style={{ display: 'flex' }}>
+        <SingleTeamPlayers />
+        <ListOfOpponents />
+      </div>
     </>
   );
 };

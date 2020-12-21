@@ -35,7 +35,7 @@ const DraftBoard = () => {
   }, [draftablePlayers]);
 
   return (
-    <section style={{ border: 'solid black 3px' }}>
+    <section>
       <header>
         <h3>draft board</h3>
       </header>

@@ -5,7 +5,7 @@ import Draft from './pages/draft/Draft';
 function App() {
   return (
     <>
-      {/* <Home /> */}
+      <Home />
       <Draft />
     </>
   );
