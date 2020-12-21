@@ -6,8 +6,20 @@ const DraftOrder = () => {
   const { competingLocations } = useGlobalContext();
   const [draftData, setDraftData] = useState(draft);
 
+  const updateDraftData = () => {
+    let newData = [...draftData];
+    newData.forEach((e) =>
+      competingLocations.forEach((i) => {
+        if (e.team_number === i.team_number) {
+          e.location = i.city;
+        }
+      })
+    );
+    setDraftData(newData);
+  };
+
   useEffect(() => {
-    console.log(competingLocations);
+    updateDraftData();
   }, [competingLocations]);
 
   if (competingLocations.length < 1) {
@@ -36,7 +48,7 @@ const DraftOrder = () => {
             return (
               <tr key={pick}>
                 <td>{round}</td>
-                <td>{location.city && location.city}</td>
+                <td>{location && location}</td>
                 <td>{selection.name && selection.name}</td>
               </tr>
             );
