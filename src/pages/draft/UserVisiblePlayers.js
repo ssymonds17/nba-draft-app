@@ -4,9 +4,11 @@ const UserVisiblePlayers = ({
   visiblePlayers,
   updateAvailablePlayers,
   updateDraftablePlayers,
-  selectUserPlayers
+  selectUserPlayers,
+  addPlayerToDraftData
 }) => {
   const handleClick = (player) => {
+    addPlayerToDraftData(player.id);
     selectUserPlayers(player);
     updateAvailablePlayers(player.id);
     updateDraftablePlayers(player.id);

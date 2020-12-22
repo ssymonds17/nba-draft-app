@@ -17,6 +17,7 @@ const AppProvider = ({ children }) => {
     PF: [],
     C: []
   });
+  const [currentPick, setCurrentPick] = useState(1);
 
   const chooseLocation = (location) => {
     setUserLocation(location);
@@ -43,6 +44,21 @@ const AppProvider = ({ children }) => {
     );
     setDraftData(newData);
   };
+  const addPlayerToDraftData = (id) => {
+    let newCount = currentPick + 1;
+    let newData = [...draftData];
+    const findPlayer = [...availablePlayers].filter(
+      (player) => player.id === id
+    );
+    newData.forEach((entry) => {
+      if (entry.pick === currentPick) {
+        entry.player_name = findPlayer[0].name;
+        entry.player_position = findPlayer[0].position;
+      }
+    });
+    setCurrentPick(newCount);
+    setDraftData(newData);
+  };
   const updateAvailablePlayers = (id) => {
     const newList = availablePlayers.filter((player) => player.id !== id);
     setAvailablePlayers(newList);
@@ -57,10 +73,10 @@ const AppProvider = ({ children }) => {
         freePositions.push(position);
       }
     }
-    const filterChosenPlayer = availablePlayers.filter(
+    const filterChosenPlayer = [...availablePlayers].filter(
       (player) => player.id !== id
     );
-    let newDraftablePlayers = freePositions
+    const newDraftablePlayers = freePositions
       .map((position) =>
         filterChosenPlayer.filter((player) => player.position === position)
       )
@@ -71,6 +87,7 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     initialiseTeamOrder();
   }, [competingLocations]);
+  useEffect(() => {}, [draftData]);
 
   return (
     <AppContext.Provider
@@ -85,7 +102,8 @@ const AppProvider = ({ children }) => {
         draftablePlayers,
         updateDraftablePlayers,
         userSquad,
-        selectUserPlayers
+        selectUserPlayers,
+        addPlayerToDraftData
       }}
     >
       {children}
