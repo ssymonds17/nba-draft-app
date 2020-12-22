@@ -1,26 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import draft from '../../data/draft';
+import React from 'react';
 import { useGlobalContext } from '../../context';
 
 const DraftOrder = () => {
-  const { competingLocations } = useGlobalContext();
-  const [draftData, setDraftData] = useState(draft);
-
-  const updateDraftData = () => {
-    let newData = [...draftData];
-    newData.forEach((e) =>
-      competingLocations.forEach((i) => {
-        if (e.team_number === i.team_number) {
-          e.location = i.city;
-        }
-      })
-    );
-    setDraftData(newData);
-  };
-
-  useEffect(() => {
-    updateDraftData();
-  }, [competingLocations]);
+  const { competingLocations, draftData } = useGlobalContext();
 
   if (competingLocations.length < 1) {
     return (
@@ -39,17 +21,25 @@ const DraftOrder = () => {
           <tr>
             <th>round</th>
             <th>team</th>
-            <th>selection</th>
+            <th>player</th>
+            <th>position</th>
           </tr>
         </thead>
         <tbody>
           {draftData.map((draftpick) => {
-            const { round, pick, location, selection } = draftpick;
+            const {
+              round,
+              pick,
+              location,
+              player_name,
+              player_position
+            } = draftpick;
             return (
               <tr key={pick}>
                 <td>{round}</td>
                 <td>{location && location}</td>
-                <td>{selection.name && selection.name}</td>
+                <td>{player_name && player_name}</td>
+                <td>{player_position && player_position}</td>
               </tr>
             );
           })}

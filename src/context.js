@@ -1,11 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import players from './data/player';
+import draft from './data/draft';
 
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
   const [userLocation, setUserLocation] = useState(null);
   const [competingLocations, setCompetingLocations] = useState([]);
+  const [draftData, setDraftData] = useState(draft);
   const [availablePlayers, setAvailablePlayers] = useState(players);
   const [draftablePlayers, setDraftablePlayers] = useState(players);
   const [userSquad, setUserSquad] = useState({
@@ -29,6 +31,17 @@ const AppProvider = ({ children }) => {
       newOrder.push(location);
     });
     setCompetingLocations(newOrder);
+  };
+  const initialiseTeamOrder = () => {
+    let newData = [...draftData];
+    newData.forEach((pick) =>
+      competingLocations.forEach((location) => {
+        if (pick.team_number === location.team_number) {
+          pick.location = location.city;
+        }
+      })
+    );
+    setDraftData(newData);
   };
   const updateAvailablePlayers = (id) => {
     const newList = availablePlayers.filter((player) => player.id !== id);
@@ -55,6 +68,10 @@ const AppProvider = ({ children }) => {
     setDraftablePlayers(newDraftablePlayers);
   };
 
+  useEffect(() => {
+    initialiseTeamOrder();
+  }, [competingLocations]);
+
   return (
     <AppContext.Provider
       value={{
@@ -62,6 +79,7 @@ const AppProvider = ({ children }) => {
         chooseLocation,
         competingLocations,
         chooseOpponents,
+        draftData,
         availablePlayers,
         updateAvailablePlayers,
         draftablePlayers,
