@@ -15,7 +15,8 @@ const DraftBoard = () => {
     draftablePlayers,
     updateDraftablePlayers,
     selectUserPlayers,
-    addPlayerToDraftData
+    addPlayerToDraftData,
+    addSelectedPlayerToSquad
   } = useGlobalContext();
   const [positions, setPositions] = useState(allPositions);
   const [visiblePlayers, setVisiblePlayers] = useState(draftablePlayers);
@@ -47,6 +48,7 @@ const DraftBoard = () => {
         updateDraftablePlayers={updateDraftablePlayers}
         selectUserPlayers={selectUserPlayers}
         addPlayerToDraftData={addPlayerToDraftData}
+        addSelectedPlayerToSquad={addSelectedPlayerToSquad}
       />
     </section>
   );

@@ -17,8 +17,29 @@ const AppProvider = ({ children }) => {
     PF: [],
     C: []
   });
+  const [squads, setSquads] = useState([
+    [{ city: 'one', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'two', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'three', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'four', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'five', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'six', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'seven', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'eight', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'nine', PG: [], SG: [], SF: [], PF: [], C: [] }],
+    [{ city: 'ten', PG: [], SG: [], SF: [], PF: [], C: [] }]
+  ]);
   const [currentPick, setCurrentPick] = useState(1);
 
+  const initialiseSquadLocations = () => {
+    let locationNames = [];
+    competingLocations.forEach((location) => {
+      locationNames.push(location.city);
+    });
+    squads.forEach((team, index) => {
+      team[0].city = locationNames[index];
+    });
+  };
   const chooseLocation = (location) => {
     setUserLocation(location);
   };
@@ -45,7 +66,6 @@ const AppProvider = ({ children }) => {
     setDraftData(newData);
   };
   const addPlayerToDraftData = (id) => {
-    let newCount = currentPick + 1;
     let newData = [...draftData];
     const findPlayer = [...availablePlayers].filter(
       (player) => player.id === id
@@ -56,7 +76,7 @@ const AppProvider = ({ children }) => {
         entry.player_position = findPlayer[0].position;
       }
     });
-    setCurrentPick(newCount);
+    setCurrentPick(currentPick + 1);
     setDraftData(newData);
   };
   const updateAvailablePlayers = (id) => {
@@ -83,11 +103,31 @@ const AppProvider = ({ children }) => {
       .flat();
     setDraftablePlayers(newDraftablePlayers);
   };
+  const addSelectedPlayerToSquad = (player) => {
+    let pickingTeam;
+    let pickingSquad;
+    let currentIndex;
+    let array = [];
+    draftData.forEach((entry) => {
+      if (entry.pick === currentPick) {
+        pickingTeam = entry.location;
+      }
+    });
+    squads.forEach((squad, index) => {
+      if (squad[0].city === pickingTeam) {
+        currentIndex = index;
+        pickingSquad = squad[0];
+      }
+    });
+    pickingSquad[player.position].push(player);
+    array.push(pickingSquad);
+    squads[currentIndex] = array;
+  };
 
   useEffect(() => {
     initialiseTeamOrder();
+    initialiseSquadLocations();
   }, [competingLocations]);
-  useEffect(() => {}, [draftData]);
 
   return (
     <AppContext.Provider
@@ -103,7 +143,8 @@ const AppProvider = ({ children }) => {
         updateDraftablePlayers,
         userSquad,
         selectUserPlayers,
-        addPlayerToDraftData
+        addPlayerToDraftData,
+        addSelectedPlayerToSquad
       }}
     >
       {children}

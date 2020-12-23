@@ -23,7 +23,7 @@ const Home = () => {
             <button
               onClick={() => chooseOpponents(data, userLocation.conference)}
             >
-              select {userLocation.city}?
+              Begin draft as {userLocation.city}
             </button>
           )}
         </header>
