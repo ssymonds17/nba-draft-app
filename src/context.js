@@ -144,7 +144,8 @@ const AppProvider = ({ children }) => {
         userSquad,
         selectUserPlayers,
         addPlayerToDraftData,
-        addSelectedPlayerToSquad
+        addSelectedPlayerToSquad,
+        squads
       }}
     >
       {children}
