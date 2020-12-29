@@ -6,11 +6,13 @@ import SingleTeamPlayers from './SingleTeamPlayers';
 import { useGlobalContext } from '../../context';
 
 const Draft = () => {
-  const { userLocation } = useGlobalContext();
+  const { userLocation, handlePlayerSelection } = useGlobalContext();
   return (
     <>
       <div>
-        <button className='btn-primary'>Start Game</button>
+        <button className='btn-primary' onClick={handlePlayerSelection}>
+          Start Game
+        </button>
         <button className='btn-primary'>Next Pick</button>
       </div>
       <div style={{ display: 'flex' }}>
