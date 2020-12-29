@@ -11,7 +11,7 @@ const Draft = () => {
     <>
       <div>
         <button className='btn-primary' onClick={handlePlayerSelection}>
-          Start Game
+          Start Draft
         </button>
         <button className='btn-primary'>Next Pick</button>
       </div>
