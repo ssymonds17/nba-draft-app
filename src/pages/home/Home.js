@@ -3,7 +3,7 @@ import teams from '../../data/teams';
 import { useGlobalContext } from '../../context';
 import { Modal } from 'react-bootstrap';
 
-const Home = () => {
+const Home = ({ handleClick }) => {
   const {
     userLocation,
     chooseLocation,
@@ -23,7 +23,7 @@ const Home = () => {
     const newLocation = [...competingLocations].filter(
       (location) => location.city === userLocation.city
     );
-    const draftPosition = newLocation[0].team_number;
+    const draftPosition = userLocation ? newLocation[0].team_number : 1;
     if (draftPosition === 1) {
       setUserDraftPosition('1st');
     } else if (draftPosition === 2) {
@@ -85,7 +85,7 @@ const Home = () => {
           {userLocation && userLocation.city} has the {userDraftPosition} pick.
         </Modal.Body>
         <Modal.Footer>
-          <button>Begin Draft</button>
+          <button onClick={handleClick}>Go To Draft</button>
           <button
             onClick={() => chooseOpponents(data, userLocation.conference)}
           >
