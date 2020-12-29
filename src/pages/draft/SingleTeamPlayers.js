@@ -12,11 +12,11 @@ const SingleTeamPlayers = (team) => {
         newSquad.push(squad[0]);
       }
     });
-    return newSquad[0];
+    setCurrentSquad(newSquad[0]);
   };
 
   useEffect(() => {
-    setCurrentSquad(findCorrectSquad());
+    findCorrectSquad();
   }, [team]);
 
   if (!currentSquad)
@@ -51,7 +51,9 @@ const SingleTeamPlayers = (team) => {
         <p>
           Reserve: {currentSquad.PF.length > 1 ? currentSquad.PF[1].name : ''}
         </p>
-        <p>: {currentSquad.C.length > 1 ? currentSquad.C[1].name : ''}</p>
+        <p>
+          Reserve: {currentSquad.C.length > 1 ? currentSquad.C[1].name : ''}
+        </p>
       </article>
     </section>
   );
