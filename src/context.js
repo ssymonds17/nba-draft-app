@@ -30,8 +30,12 @@ const AppProvider = ({ children }) => {
     [{ city: 'ten', PG: [], SG: [], SF: [], PF: [], C: [] }]
   ]);
   const [currentPick, setCurrentPick] = useState(1);
+  const [isUser, setIsUser] = useState(false);
+  const [nextTeam, setNextTeam] = useState('');
   const [lastPickedPlayer, setLastPickedPlayer] = useState(null);
+  const [lastTeamToPick, setLastTeamToPick] = useState(null);
 
+  // Functions to setup teams
   const initialiseSquadLocations = () => {
     let locationNames = [];
     competingLocations.forEach((location) => {
@@ -66,6 +70,7 @@ const AppProvider = ({ children }) => {
     );
     setDraftData(newData);
   };
+  // Functions to handle both user and computer picks
   const addPlayerToDraftData = (id) => {
     let newData = [...draftData];
     const findPlayer = [...availablePlayers].filter(
@@ -83,26 +88,6 @@ const AppProvider = ({ children }) => {
   const updateAvailablePlayers = (id) => {
     const newList = availablePlayers.filter((player) => player.id !== id);
     setAvailablePlayers(newList);
-  };
-  const selectUserPlayers = (player) => {
-    userSquad[player.position].push(player);
-  };
-  const updateDraftablePlayers = (id) => {
-    let freePositions = [];
-    for (const position in userSquad) {
-      if (userSquad[position].length < 2) {
-        freePositions.push(position);
-      }
-    }
-    const filterChosenPlayer = [...availablePlayers].filter(
-      (player) => player.id !== id
-    );
-    const newDraftablePlayers = freePositions
-      .map((position) =>
-        filterChosenPlayer.filter((player) => player.position === position)
-      )
-      .flat();
-    setDraftablePlayers(newDraftablePlayers);
   };
   const addSelectedPlayerToSquad = (player) => {
     let pickingTeam;
@@ -124,7 +109,6 @@ const AppProvider = ({ children }) => {
     array.push(pickingSquad);
     squads[currentIndex] = array;
   };
-  // --------------------------------------------
   // Functions for the computer player selection
   const getPickingTeam = () => {
     let pickingTeam;
@@ -174,6 +158,7 @@ const AppProvider = ({ children }) => {
   const opponentPlayerSelection = () => {
     // Determine the currently picking team by matching the location with the currentPick
     const pickingTeam = getPickingTeam();
+    setLastTeamToPick(pickingTeam);
     // Grab the current squad for that team
     const pickingSquad = getPickingSquad(pickingTeam);
     // Find which positions in the current squad already have two players selected
@@ -194,7 +179,7 @@ const AppProvider = ({ children }) => {
     );
     // Select the player at the top of the random list and return that player
     const chosenPlayer = randomPlayerSelection.shift();
-    console.log(chosenPlayer);
+    setLastPickedPlayer(chosenPlayer);
     return chosenPlayer;
   };
   const handlePlayerSelection = () => {
@@ -204,7 +189,66 @@ const AppProvider = ({ children }) => {
     updateAvailablePlayers(player.id);
     updateDraftablePlayers(player.id);
   };
-  // ----------------------------------------------
+  // Functions to handle user picks
+  const selectUserPlayers = (player) => {
+    userSquad[player.position].push(player);
+  };
+  const updateDraftablePlayers = (id) => {
+    let freePositions = [];
+    for (const position in userSquad) {
+      if (userSquad[position].length < 2) {
+        freePositions.push(position);
+      }
+    }
+    const filterChosenPlayer = [...availablePlayers].filter(
+      (player) => player.id !== id
+    );
+    const newDraftablePlayers = freePositions
+      .map((position) =>
+        filterChosenPlayer.filter((player) => player.position === position)
+      )
+      .flat();
+    setDraftablePlayers(newDraftablePlayers);
+  };
+  const updateLastPicked = (player) => {
+    const pickingTeam = getPickingTeam();
+    setLastTeamToPick(pickingTeam);
+    setLastPickedPlayer(player);
+  };
+  const updateIsUser = () => {
+    const pickingTeam = getPickingTeam();
+    if (pickingTeam === userLocation.city) {
+      setIsUser(true);
+    } else {
+      setIsUser(false);
+    }
+  };
+  const getNextTeam = () => {
+    if (availablePlayers.length === 1) return;
+
+    setNextTeam(
+      [...draftData].find((entry) => entry.pick === currentPick + 1).location
+    );
+  };
+  const doubleUserForceAction = () => {
+    if (availablePlayers.length === 1) {
+      return;
+    }
+    let second = [...draftData].find((entry) => entry.pick === currentPick + 2)
+      .location;
+    setNextTeam(second);
+    if (second !== userLocation.city) {
+      return true;
+    }
+  };
+  const handleUserSelection = (player) => {
+    updateLastPicked(player);
+    addSelectedPlayerToSquad(player);
+    addPlayerToDraftData(player.id);
+    selectUserPlayers(player);
+    updateAvailablePlayers(player.id);
+    updateDraftablePlayers(player.id);
+  };
 
   useEffect(() => {
     initialiseTeamOrder();
@@ -228,7 +272,17 @@ const AppProvider = ({ children }) => {
         addPlayerToDraftData,
         addSelectedPlayerToSquad,
         squads,
-        handlePlayerSelection
+        handlePlayerSelection,
+        lastPickedPlayer,
+        lastTeamToPick,
+        getPickingTeam,
+        updateIsUser,
+        handleUserSelection,
+        isUser,
+        nextTeam,
+        getNextTeam,
+        doubleUserForceAction,
+        currentPick
       }}
     >
       {children}

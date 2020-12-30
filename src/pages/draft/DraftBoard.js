@@ -9,15 +9,8 @@ const allPositions = [
   ...new Set(players.map((player) => player.position))
 ];
 
-const DraftBoard = () => {
-  const {
-    updateAvailablePlayers,
-    draftablePlayers,
-    updateDraftablePlayers,
-    selectUserPlayers,
-    addPlayerToDraftData,
-    addSelectedPlayerToSquad
-  } = useGlobalContext();
+const DraftBoard = ({ handleUserPick }) => {
+  const { draftablePlayers } = useGlobalContext();
   const [positions, setPositions] = useState(allPositions);
   const [visiblePlayers, setVisiblePlayers] = useState(draftablePlayers);
 
@@ -44,11 +37,7 @@ const DraftBoard = () => {
       <Positions positions={positions} filterByPosition={filterByPosition} />
       <UserVisiblePlayers
         visiblePlayers={visiblePlayers}
-        updateAvailablePlayers={updateAvailablePlayers}
-        updateDraftablePlayers={updateDraftablePlayers}
-        selectUserPlayers={selectUserPlayers}
-        addPlayerToDraftData={addPlayerToDraftData}
-        addSelectedPlayerToSquad={addSelectedPlayerToSquad}
+        handleUserPick={handleUserPick}
       />
     </section>
   );

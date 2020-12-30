@@ -37,6 +37,7 @@ const DraftOrder = () => {
             return (
               <tr key={pick}>
                 <td>{round}</td>
+                <td>{pick}</td>
                 <td>{location && location}</td>
                 <td>{player_name && player_name}</td>
                 <td>{player_position && player_position}</td>

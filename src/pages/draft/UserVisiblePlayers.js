@@ -1,20 +1,6 @@
 import React from 'react';
 
-const UserVisiblePlayers = ({
-  visiblePlayers,
-  updateAvailablePlayers,
-  updateDraftablePlayers,
-  selectUserPlayers,
-  addPlayerToDraftData,
-  addSelectedPlayerToSquad
-}) => {
-  const handleClick = (player) => {
-    addSelectedPlayerToSquad(player);
-    addPlayerToDraftData(player.id);
-    selectUserPlayers(player);
-    updateAvailablePlayers(player.id);
-    updateDraftablePlayers(player.id);
-  };
+const UserVisiblePlayers = ({ visiblePlayers, handleUserPick }) => {
   if (visiblePlayers.length < 1) {
     return (
       <section>
@@ -36,7 +22,7 @@ const UserVisiblePlayers = ({
           const { id, name, position, year_from, year_to } = player;
           return (
             <tr key={id}>
-              <td onClick={() => handleClick(player)}>{name}</td>
+              <td onClick={() => handleUserPick(player)}>{name}</td>
               <td>{position}</td>
               <td>
                 {year_from}-{year_to}
