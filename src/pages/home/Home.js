@@ -3,7 +3,7 @@ import teams from '../../data/teams';
 import { useGlobalContext } from '../../context';
 import { Modal } from 'react-bootstrap';
 
-const Home = ({ handleClick }) => {
+const Home = ({ handleHomeClick }) => {
   const {
     userLocation,
     chooseLocation,
@@ -85,7 +85,7 @@ const Home = ({ handleClick }) => {
           {userLocation && userLocation.city} has the {userDraftPosition} pick.
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={handleClick}>Go To Draft</button>
+          <button onClick={handleHomeClick}>Go To Draft</button>
           <button
             onClick={() => chooseOpponents(data, userLocation.conference)}
           >

@@ -6,9 +6,10 @@ import SingleTeamPlayers from './SingleTeamPlayers';
 import { useGlobalContext } from '../../context';
 import { Modal } from 'react-bootstrap';
 
-const Draft = () => {
+const Draft = ({ handleDraftClick }) => {
   const {
     userLocation,
+    availablePlayers,
     handlePlayerSelection,
     lastPickedPlayer,
     lastTeamToPick,
@@ -24,6 +25,8 @@ const Draft = () => {
   const [showOpponentSelectionModal, setShowOpponentSelectionModal] = useState(
     false
   );
+  const [showEndDraftModal, setShowEndDraftModal] = useState(false);
+
   // Functions to check if the user has the number 1 pick
   const allowUserPickStart = () => {
     if (isUser === true) {
@@ -70,10 +73,19 @@ const Draft = () => {
     const checkUser = doubleUserForceAction();
     allowUserPick(checkUser);
   };
+  const handleDraftEnd = () => {
+    if (availablePlayers.length === 0) {
+      setShowOpponentSelectionModal(false);
+      setShowEndDraftModal(true);
+    }
+  };
 
   useEffect(() => {
     updateIsUser();
   }, []);
+  useEffect(() => {
+    handleDraftEnd();
+  }, [availablePlayers]);
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -121,6 +133,20 @@ const Draft = () => {
           </p>
           <button className='btn-primary' onClick={handleNextPick}>
             Next Pick
+          </button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showEndDraftModal} backdrop='static' keyboard={false}>
+        <Modal.Header>
+          <Modal.Title>Draft Completed</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          The draft has finished. Please proceed to the tournament round where
+          your selected team will be matched up against each opponent.
+        </Modal.Body>
+        <Modal.Footer>
+          <button className='btn-primary' onClick={handleDraftClick}>
+            Go To Tournament
           </button>
         </Modal.Footer>
       </Modal>
