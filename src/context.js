@@ -169,7 +169,7 @@ const AppProvider = ({ children }) => {
     );
     // Determine whether the amount of players available to the current team is more or less than 20. If it's less then the value will be set at the length of the array.
     const playerPool =
-      currentTeamAvailablePlayers.length > 10
+      currentTeamAvailablePlayers.length >= 10
         ? 10
         : currentTeamAvailablePlayers.length;
     // Sort the resulting available players by rating (highest to lowest), grab only the top 20 (or keep all if there are less than 20 players remaining) and randomise the order
@@ -179,6 +179,7 @@ const AppProvider = ({ children }) => {
     );
     // Select the player at the top of the random list and return that player
     const chosenPlayer = randomPlayerSelection.shift();
+    console.log('computer', pickingTeam, chosenPlayer.name, freePositions);
     setLastPickedPlayer(chosenPlayer);
     return chosenPlayer;
   };
@@ -233,15 +234,22 @@ const AppProvider = ({ children }) => {
   const doubleUserForceAction = () => {
     if (availablePlayers.length === 1) {
       return;
-    }
-    let second = [...draftData].find((entry) => entry.pick === currentPick + 2)
-      .location;
-    setNextTeam(second);
-    if (second !== userLocation.city) {
-      return true;
+    } else if (currentPick === 99) {
+      let first = [...draftData].find((entry) => entry.pick === currentPick + 1)
+        .location;
+      setNextTeam(first);
+    } else {
+      let second = [...draftData].find(
+        (entry) => entry.pick === currentPick + 2
+      ).location;
+      setNextTeam(second);
+      if (second !== userLocation.city) {
+        return true;
+      }
     }
   };
   const handleUserSelection = (player) => {
+    console.log('user', player.name);
     updateLastPicked(player);
     addSelectedPlayerToSquad(player);
     addPlayerToDraftData(player.id);

@@ -64,28 +64,30 @@ const Draft = ({ handleDraftClick }) => {
     getNextTeam();
   };
   const handleNextPick = () => {
-    allowOpponentPick();
-    allowUserPick();
-    getNextTeam();
+    if (currentPick === 101) {
+      handleDraftEnd();
+    } else {
+      allowOpponentPick();
+      allowUserPick();
+      getNextTeam();
+    }
   };
   const handleUserPick = (player) => {
     handleUserSelection(player);
     const checkUser = doubleUserForceAction();
     allowUserPick(checkUser);
+    if (availablePlayers.length === 1) {
+      handleDraftEnd();
+    }
   };
   const handleDraftEnd = () => {
-    if (availablePlayers.length === 0) {
-      setShowOpponentSelectionModal(false);
-      setShowEndDraftModal(true);
-    }
+    setShowOpponentSelectionModal(false);
+    setShowEndDraftModal(true);
   };
 
   useEffect(() => {
     updateIsUser();
   }, []);
-  useEffect(() => {
-    handleDraftEnd();
-  }, [availablePlayers]);
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -128,11 +130,13 @@ const Draft = ({ handleDraftClick }) => {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <p>
-            Next Pick: {nextTeam} ({currentPick})
-          </p>
+          {currentPick <= 100 && (
+            <p>
+              Next Pick: {nextTeam} ({currentPick})
+            </p>
+          )}
           <button className='btn-primary' onClick={handleNextPick}>
-            Next Pick
+            {currentPick <= 100 ? 'Next Pick' : 'Finish'}
           </button>
         </Modal.Footer>
       </Modal>
