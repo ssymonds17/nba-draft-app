@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import teams from '../../data/teams';
 import { useGlobalContext } from '../../context';
 import { Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Home = ({ handleHomeClick }) => {
   const {
@@ -43,6 +44,9 @@ const Home = ({ handleHomeClick }) => {
     <>
       <main>
         <section>
+          <Link to='/history' className='btn-primary'>
+            History
+          </Link>
           <h1>ultimate nba draft</h1>
           <p>
             Pick a team and then draft that team against 9 others. After the

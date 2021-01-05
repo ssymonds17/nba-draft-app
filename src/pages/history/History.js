@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const History = () => {
   const [history, setHistory] = useState(null);
@@ -14,7 +15,9 @@ const History = () => {
   if (!history) {
     return (
       <div>
-        <button className='btn-primary'>Home</button>
+        <Link to='/' className='btn-primary'>
+          Home
+        </Link>
         <h5>
           You have no teams saved yet. Please complete a draft and then return
           to view your saved teams.
@@ -24,12 +27,13 @@ const History = () => {
   }
   return (
     <section>
-      <button className='btn-primary'>Home</button>
+      <Link to='/' className='btn-primary'>
+        Home
+      </Link>
       <h1>History</h1>
       <table>
         <thead>
           <tr>
-            {/* {Make each position span two columns} */}
             <th>Saved</th>
             <th>Team</th>
             <th>Record</th>

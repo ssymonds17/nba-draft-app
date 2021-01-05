@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Home from './pages/home/Home';
 import Draft from './pages/draft/Draft';
 import Tournament from './pages/tournament/Tournament';
-import History from './pages/history/History';
 
 function App() {
   const [showHome, setShowHome] = useState(true);
@@ -26,7 +25,6 @@ function App() {
       {showHome && <Home handleHomeClick={handleHomeClick} />}
       {showDraft && <Draft handleDraftClick={handleDraftClick} />}
       {showTournament && <Tournament />}
-      <History />
     </>
   );
 }
