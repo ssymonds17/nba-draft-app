@@ -179,7 +179,6 @@ const AppProvider = ({ children }) => {
     );
     // Select the player at the top of the random list and return that player
     const chosenPlayer = randomPlayerSelection.shift();
-    console.log('computer', pickingTeam, chosenPlayer.name, freePositions);
     setLastPickedPlayer(chosenPlayer);
     return chosenPlayer;
   };
@@ -249,7 +248,6 @@ const AppProvider = ({ children }) => {
     }
   };
   const handleUserSelection = (player) => {
-    console.log('user', player.name);
     updateLastPicked(player);
     addSelectedPlayerToSquad(player);
     addPlayerToDraftData(player.id);

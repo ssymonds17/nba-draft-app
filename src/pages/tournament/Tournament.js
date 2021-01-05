@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../../context';
 import ScoreList from './ScoreList';
 import MatchupView from './MatchupView';
+import { Modal } from 'react-bootstrap';
 
 const Tournament = () => {
   const {
@@ -18,6 +19,7 @@ const Tournament = () => {
   const [results, setResults] = useState([]);
   const [userScore, setUserScore] = useState(0);
   const [opponentScore, setOpponentScore] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
   const updateOpponentLocations = () => {
     const newLocations = [...competingLocations].filter(
@@ -44,7 +46,6 @@ const Tournament = () => {
         ratings.push(players.rating);
       }
     }
-    // setUserRating(ratings.reduce((a, b) => a + b));
     return ratings.reduce((a, b) => a + b);
   };
   const getOpponentRating = () => {
@@ -56,7 +57,6 @@ const Tournament = () => {
         ratings.push(players.rating);
       }
     }
-    // setOpponentRating(ratings.reduce((a, b) => a + b));
     return ratings.reduce((a, b) => a + b);
   };
   const runGame = () => {
@@ -99,74 +99,91 @@ const Tournament = () => {
     setMatchupIndex(matchupIndex + 1);
   };
   const saveTeam = () => {
-    let history = JSON.parse(localStorage.getItem('history')) || [];
+    let history;
+    if (localStorage['history']) {
+      history = JSON.parse(localStorage.getItem('history'));
+    } else {
+      history = [];
+    }
     const date = new Date().toString().slice(4, 24);
     const newTeamData = {
       name: userLocation.city,
       record: `${wins}-${losses}`,
       roster: {
-        pgOne: userSquad.PG[0],
-        pgTwo: userSquad.PG[1],
-        sgOne: userSquad.SG[0],
-        sgTwo: userSquad.SG[1],
-        sfOne: userSquad.SF[0],
-        sfTwo: userSquad.SF[1],
-        pfOne: userSquad.PF[0],
-        pfTwo: userSquad.PF[1],
-        cOne: userSquad.C[0],
-        cTwo: userSquad.C[1]
+        pgOne: userSquad.PG[0].name,
+        pgTwo: userSquad.PG[1].name,
+        sgOne: userSquad.SG[0].name,
+        sgTwo: userSquad.SG[1].name,
+        sfOne: userSquad.SF[0].name,
+        sfTwo: userSquad.SF[1].name,
+        pfOne: userSquad.PF[0].name,
+        pfTwo: userSquad.PF[1].name,
+        cOne: userSquad.C[0].name,
+        cTwo: userSquad.C[1].name
       },
-      dateAndTime: date
+      dateAndTime: date,
+      teamRating: userScore
     };
     history.push(newTeamData);
-    localStorage.setItem('teamData', JSON.stringify(history));
+    localStorage.setItem('history', JSON.stringify(history));
+    setShowModal(true);
   };
 
   useEffect(() => {
     updateOpponentLocations();
   }, []);
   return (
-    <main>
-      <h2>Tournament</h2>
-      {results.length < 9 && (
-        <div>
-          {matchupIndex === 0 && !currentOpponent && (
-            <button onClick={getCurrentOpponent}>Go To First Game</button>
-          )}
-          {matchupIndex > 0 && userScore !== 0 && (
-            <button onClick={getCurrentOpponent}>Go To Next Game</button>
-          )}
-          {currentOpponent && userScore === 0 && (
-            <button id='run-game' onClick={runGame}>
-              Play Current Matchup
-            </button>
-          )}
-        </div>
-      )}
-      <section style={{ display: 'flex' }}>
-        <ScoreList
-          squads={squads}
-          opponentLocations={opponentLocations}
-          wins={wins}
-          losses={losses}
-          results={results}
-        />
-        <MatchupView
-          currentOpponent={currentOpponent}
-          userLocation={userLocation}
-          userSquad={userSquad}
-          matchupIndex={matchupIndex}
-          userScore={userScore}
-          opponentScore={opponentScore}
-        />
-      </section>
-      {matchupIndex > 8 && (
-        <section>
-          <button onClick={() => window.location.reload()}>Play Again</button>
-          <button onClick={saveTeam}>Save Your Team</button>
+    <>
+      <main>
+        <h2>Tournament</h2>
+        {results.length < 9 && (
+          <div>
+            {matchupIndex === 0 && !currentOpponent && (
+              <button onClick={getCurrentOpponent}>Go To First Game</button>
+            )}
+            {matchupIndex > 0 && userScore !== 0 && (
+              <button onClick={getCurrentOpponent}>Go To Next Game</button>
+            )}
+            {currentOpponent && userScore === 0 && (
+              <button id='run-game' onClick={runGame}>
+                Play Current Matchup
+              </button>
+            )}
+          </div>
+        )}
+        <section style={{ display: 'flex' }}>
+          <ScoreList
+            squads={squads}
+            opponentLocations={opponentLocations}
+            wins={wins}
+            losses={losses}
+            results={results}
+          />
+          <MatchupView
+            currentOpponent={currentOpponent}
+            userLocation={userLocation}
+            userSquad={userSquad}
+            matchupIndex={matchupIndex}
+            userScore={userScore}
+            opponentScore={opponentScore}
+          />
         </section>
-      )}
-    </main>
+        {matchupIndex > 8 && (
+          <section>
+            <button onClick={saveTeam}>Save and Finish</button>
+          </section>
+        )}
+      </main>
+      <Modal show={showModal} backdrop='static' keyboard={false}>
+        <Modal.Body>
+          Your team data has been saved. You can review previous teams you have
+          drafted from the History page.
+        </Modal.Body>
+        <Modal.Footer>
+          <button onClick={() => window.location.reload()}>Play Again</button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
