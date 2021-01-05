@@ -98,6 +98,29 @@ const Tournament = () => {
     setOpponentScore(newB);
     setMatchupIndex(matchupIndex + 1);
   };
+  const saveTeam = () => {
+    let history = JSON.parse(localStorage.getItem('history')) || [];
+    const date = new Date().toString().slice(4, 24);
+    const newTeamData = {
+      name: userLocation.city,
+      record: `${wins}-${losses}`,
+      roster: {
+        pgOne: userSquad.PG[0],
+        pgTwo: userSquad.PG[1],
+        sgOne: userSquad.SG[0],
+        sgTwo: userSquad.SG[1],
+        sfOne: userSquad.SF[0],
+        sfTwo: userSquad.SF[1],
+        pfOne: userSquad.PF[0],
+        pfTwo: userSquad.PF[1],
+        cOne: userSquad.C[0],
+        cTwo: userSquad.C[1]
+      },
+      dateAndTime: date
+    };
+    history.push(newTeamData);
+    localStorage.setItem('teamData', JSON.stringify(history));
+  };
 
   useEffect(() => {
     updateOpponentLocations();
@@ -137,6 +160,12 @@ const Tournament = () => {
           opponentScore={opponentScore}
         />
       </section>
+      {matchupIndex > 8 && (
+        <section>
+          <button onClick={() => window.location.reload()}>Play Again</button>
+          <button onClick={saveTeam}>Save Your Team</button>
+        </section>
+      )}
     </main>
   );
 };
