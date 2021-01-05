@@ -44,8 +44,8 @@ const Home = ({ handleHomeClick }) => {
     <>
       <main>
         <section>
-          <Link to='/history' className='btn-primary'>
-            History
+          <Link to='/history'>
+            <button className='btn-primary'>History</button>
           </Link>
           <h1>ultimate nba draft</h1>
           <p>

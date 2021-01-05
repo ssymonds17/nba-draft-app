@@ -15,8 +15,8 @@ const History = () => {
   if (!history) {
     return (
       <div>
-        <Link to='/' className='btn-primary'>
-          Home
+        <Link to='/'>
+          <button className='btn-primary'>Home</button>
         </Link>
         <h5>
           You have no teams saved yet. Please complete a draft and then return
@@ -27,8 +27,8 @@ const History = () => {
   }
   return (
     <section>
-      <Link to='/' className='btn-primary'>
-        Home
+      <Link to='/'>
+        <button className='btn-primary'>Home</button>
       </Link>
       <h1>History</h1>
       <table>
@@ -37,11 +37,11 @@ const History = () => {
             <th>Saved</th>
             <th>Team</th>
             <th>Record</th>
-            <th colspan='2'>PG</th>
-            <th colspan='2'>SG</th>
-            <th colspan='2'>SF</th>
-            <th colspan='2'>PF</th>
-            <th colspan='2'>C</th>
+            <th colSpan='2'>PG</th>
+            <th colSpan='2'>SG</th>
+            <th colSpan='2'>SF</th>
+            <th colSpan='2'>PF</th>
+            <th colSpan='2'>C</th>
             <th>Team Rating</th>
           </tr>
         </thead>
