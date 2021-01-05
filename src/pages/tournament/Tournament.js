@@ -122,6 +122,7 @@ const Tournament = () => {
       )}
       <section style={{ display: 'flex' }}>
         <ScoreList
+          squads={squads}
           opponentLocations={opponentLocations}
           wins={wins}
           losses={losses}
