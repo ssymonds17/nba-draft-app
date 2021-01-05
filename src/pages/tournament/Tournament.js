@@ -107,16 +107,17 @@ const Tournament = () => {
       <h2>Tournament</h2>
       {results.length < 9 && (
         <div>
-          <button onClick={getCurrentOpponent}>
-            {matchupIndex === 0 ? 'Go To First Game' : 'Go To Next Game'}
-          </button>
-          <button
-            onClick={() => {
-              runGame();
-            }}
-          >
-            Play Current Matchup
-          </button>
+          {matchupIndex === 0 && !currentOpponent && (
+            <button onClick={getCurrentOpponent}>Go To First Game</button>
+          )}
+          {matchupIndex > 0 && userScore !== 0 && (
+            <button onClick={getCurrentOpponent}>Go To Next Game</button>
+          )}
+          {currentOpponent && userScore === 0 && (
+            <button id='run-game' onClick={runGame}>
+              Play Current Matchup
+            </button>
+          )}
         </div>
       )}
       <section style={{ display: 'flex' }}>
