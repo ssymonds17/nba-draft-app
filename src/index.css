@@ -11,3 +11,237 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* Buttons */
+.custom-btn {
+  background-color: #367c3a;
+  color: white;
+  border: none;
+  transition-duration: 0.3s;
+}
+.custom-btn:hover {
+  background-color: white;
+  color: #1f4721;
+}
+.location-choose-btn {
+  background-color: white;
+  border: 3px solid black;
+  color: black;
+  height: 2.5rem;
+  width: 15rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  justify-self: center;
+  transition-duration: 0.3s;
+}
+.location-choose-btn:hover {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+.location-btn {
+  display: inline-block;
+  height: 2.5rem;
+  margin: 1rem;
+  width: 10rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  justify-self: center;
+}
+.location-btn:hover {
+  border: 3px solid #1f4721;
+}
+.location-btn:focus {
+  outline: none;
+}
+.modal-btn:focus {
+  outline: none;
+}
+.modal-btn-forwards {
+  background-color: #007bff;
+  color: white;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+.modal-btn-forwards:hover {
+  background-color: white;
+  color: #007bff;
+}
+.modal-btn-change {
+  background-color: #367c3a;
+  color: white;
+  border: 1px solid #367c3a;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+.modal-btn-change:hover {
+  background-color: white;
+  color: #367c3a;
+}
+.modal-btn-back {
+  background-color: #f44336;
+  color: white;
+  border: 1px solid #f44336;
+  border-radius: 5px;
+  transition-duration: 0.3s;
+}
+.modal-btn-back:hover {
+  background-color: white;
+  color: #f44336;
+}
+.position-btn {
+  margin: 0 0.5rem;
+  margin-top: 0.25rem;
+  width: 3rem;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background-color: #cc6600;
+  border-color: #cc6600;
+  color: white;
+}
+.position-btn:focus {
+  border: 3px solid black;
+  outline: none;
+}
+.position-btn:active {
+  border: 3px solid black;
+  outline: none;
+}
+
+/* Tables */
+.draft-table {
+  height: 39.5rem;
+  display: block;
+  margin-top: 2rem;
+  overflow-y: scroll;
+  border: 2px solid black;
+}
+.draft-table th {
+  width: 12rem;
+  background-color: #367c3a;
+  color: white;
+  font-weight: bold;
+  position: sticky;
+  top: 0;
+  z-index: 0;
+}
+.draft-table td th {
+  text-align: center;
+  width: 50px !important;
+}
+.draft-player-name:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Nav Styling */
+.nav-container {
+  width: 100%;
+}
+.nav-btn {
+  width: 50%;
+  height: 3rem;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+}
+
+/* Home Styling */
+.home-main {
+  height: 40%;
+  text-align: center;
+}
+.home-main h1 {
+  padding-top: 4rem;
+}
+.home-main p {
+  font-size: 1.1rem;
+  padding-top: 1rem;
+  width: 80%;
+  padding-left: 20%;
+}
+.team-selection-header {
+  padding-top: 2.5rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+.location-button-container {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  justify-content: center;
+}
+
+/* Draft Styling */
+.draft-main {
+  height: 100vh;
+  display: flex;
+  align-content: center;
+}
+.draft-main h3 {
+  margin-top: 1rem;
+}
+.draft-tables-container {
+  display: flex;
+  width: 100vw;
+}
+.draft-board {
+  width: 33.3vw;
+  justify-content: center;
+  text-align: center;
+  text-transform: capitalize;
+  border: 2px solid black;
+}
+.position-btn-container {
+  justify-content: space-between;
+}
+.draft-order {
+  width: 33.3vw;
+  justify-content: center;
+  text-align: center;
+  text-transform: capitalize;
+  border: 2px solid black;
+}
+.draft-order header {
+  padding-bottom: 2rem;
+}
+.draft-rosters-container {
+  width: 33.3vw;
+}
+.user-squad-container {
+  border: 2px solid black;
+  height: 55vh;
+}
+.user-squad-container h3 {
+  text-align: center;
+  padding: 0.5rem;
+}
+.user-squad-container li {
+  list-style: none;
+  padding-bottom: 0.5rem;
+}
+.draft-opponents-container {
+  border: 2px solid black;
+  height: 45vh;
+}
+.draft-opponents-container h3 {
+  text-align: center;
+}
+.draft-opponents-container ul {
+  column-count: 2;
+  padding-left: 6rem;
+}
+.draft-opponents-container li {
+  font-size: 1rem;
+  padding-top: 1.5rem;
+  list-style: none;
+}
+.draft-opponents-container li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.opponent-squad-modal li {
+  padding-top: 1rem;
+}
+.opponent-squad-modal li {
+  list-style: none;
+}

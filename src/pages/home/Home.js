@@ -43,22 +43,28 @@ const Home = ({ handleHomeClick }) => {
   return (
     <>
       <main>
-        <section>
-          <Link to='/history'>
-            <button className='btn-primary'>History</button>
+        <div className='nav-container'>
+          <Link to='/'>
+            <button className='custom-btn nav-btn'>Home</button>
           </Link>
-          <h1>ultimate nba draft</h1>
+          <Link to='/history'>
+            <button className='custom-btn nav-btn'>History</button>
+          </Link>
+        </div>
+        <section className='home-main'>
+          <h1>All Time NBA Fantasy Draft</h1>
           <p>
-            Pick a team and then draft that team against 9 others. After the
-            teams are selected, your team will run a gauntlet against each of
-            your opponents, and the ultimate aim is to go undefeated (9-0).
+            From a selection of current and classic players, draft a star
+            studded roster to compete against 9 competitors. To begin, merely
+            select a location for your team.
           </p>
         </section>
-        <section>
-          <header>
-            {!userLocation && <h2>select a team location</h2>}
+        <section className='team-selection'>
+          <header className='team-selection-header'>
+            {!userLocation && <h3>select a team location</h3>}
             {userLocation && (
               <button
+                className='location-choose-btn'
                 onClick={() =>
                   handleLocationSelection(data, userLocation.conference)
                 }
@@ -67,11 +73,15 @@ const Home = ({ handleHomeClick }) => {
               </button>
             )}
           </header>
-          <div>
+          <div className='location-button-container'>
             {data.map((location) => {
               const { city, id } = location;
               return (
-                <button key={id} onClick={() => chooseLocation(location)}>
+                <button
+                  className='location-btn custom-btn'
+                  key={id}
+                  onClick={() => chooseLocation(location)}
+                >
                   {city}
                 </button>
               );
@@ -89,13 +99,21 @@ const Home = ({ handleHomeClick }) => {
           {userLocation && userLocation.city} has the {userDraftPosition} pick.
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={handleHomeClick}>Go To Draft</button>
           <button
+            className='modal-btn modal-btn-forwards'
+            onClick={handleHomeClick}
+          >
+            Go To Draft
+          </button>
+          <button
+            className='modal-btn modal-btn-change'
             onClick={() => chooseOpponents(data, userLocation.conference)}
           >
             Change Draft Order
           </button>
-          <button onClick={handleClose}>Choose Different Team</button>
+          <button className='modal-btn modal-btn-back' onClick={handleClose}>
+            Choose Different Team
+          </button>
         </Modal.Footer>
       </Modal>
     </>

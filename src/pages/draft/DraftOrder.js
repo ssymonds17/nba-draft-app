@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from 'react-bootstrap/Table';
 import { useGlobalContext } from '../../context';
 
 const DraftOrder = () => {
@@ -12,14 +13,15 @@ const DraftOrder = () => {
     );
   }
   return (
-    <section>
+    <section className='draft-order'>
       <header>
-        <h3>selections</h3>
+        <h3>Draft Selections</h3>
       </header>
-      <table>
+      <Table bordered responsive className='draft-table'>
         <thead>
           <tr>
             <th>round</th>
+            <th>pick</th>
             <th>team</th>
             <th>player</th>
             <th>position</th>
@@ -45,7 +47,7 @@ const DraftOrder = () => {
             );
           })}
         </tbody>
-      </table>
+      </Table>
     </section>
   );
 };

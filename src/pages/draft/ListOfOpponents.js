@@ -35,19 +35,21 @@ const ListOfOpponents = () => {
   }
   return (
     <>
-      <section>
+      <section className='draft-opponents-container'>
         <header>
-          <h2>Opponent Squads</h2>
+          <h3>Opponent Rosters</h3>
         </header>
         <article>
-          {opponentLocations.map((location) => {
-            const { city, team_number } = location;
-            return (
-              <p key={team_number} onClick={() => handleClick(city)}>
-                {city}
-              </p>
-            );
-          })}
+          <ul>
+            {opponentLocations.map((location) => {
+              const { city, team_number } = location;
+              return (
+                <li key={team_number} onClick={() => handleClick(city)}>
+                  {city}
+                </li>
+              );
+            })}
+          </ul>
         </article>
       </section>
       <OpponentSquadModal
@@ -76,65 +78,95 @@ const OpponentSquadModal = (props) => {
           {props.currentSquad && props.currentSquad.city}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <p>
-          PG:{' '}
-          {props.currentSquad.PG.length > 0
-            ? props.currentSquad.PG[0].name
-            : ''}
-        </p>
-        <p>
-          SG:{' '}
-          {props.currentSquad.SG.length > 0
-            ? props.currentSquad.SG[0].name
-            : ''}
-        </p>
-        <p>
-          SF:{' '}
-          {props.currentSquad.SF.length > 0
-            ? props.currentSquad.SF[0].name
-            : ''}
-        </p>
-        <p>
-          PF:{' '}
-          {props.currentSquad.PF.length > 0
-            ? props.currentSquad.PF[0].name
-            : ''}
-        </p>
-        <p>
-          C:{' '}
-          {props.currentSquad.C.length > 0 ? props.currentSquad.C[0].name : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.PG.length > 1
-            ? props.currentSquad.PG[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.SG.length > 1
-            ? props.currentSquad.SG[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.SF.length > 1
-            ? props.currentSquad.SF[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.PF.length > 1
-            ? props.currentSquad.PF[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.C.length > 1 ? props.currentSquad.C[1].name : ''}
-        </p>
+      <Modal.Body className='opponent-squad-modal'>
+        <section style={{ display: 'flex' }}>
+          <article style={{ display: 'flex' }}>
+            <div>
+              <ul>
+                <li>PG:</li>
+                <li>SG:</li>
+                <li>SF:</li>
+                <li>PF:</li>
+                <li>C:</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  {props.currentSquad.PG.length > 0
+                    ? props.currentSquad.PG[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SG.length > 0
+                    ? props.currentSquad.SG[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SF.length > 0
+                    ? props.currentSquad.SF[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.PF.length > 0
+                    ? props.currentSquad.PF[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.C.length > 0
+                    ? props.currentSquad.C[0].name
+                    : '________________________________'}
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article style={{ display: 'flex' }}>
+            <div>
+              <ul>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  {props.currentSquad.PG.length > 1
+                    ? props.currentSquad.PG[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SG.length > 1
+                    ? props.currentSquad.SG[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SF.length > 1
+                    ? props.currentSquad.SF[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.PF.length > 1
+                    ? props.currentSquad.PF[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.C.length > 1
+                    ? props.currentSquad.C[1].name
+                    : '________________________________'}
+                </li>
+              </ul>
+            </div>
+          </article>
+        </section>
       </Modal.Body>
-      <Modal.Footer onClick={props.onHide}>Back</Modal.Footer>
+      <Modal.Footer>
+        <button className='modal-btn-back' onClick={props.onHide}>
+          Back
+        </button>
+      </Modal.Footer>
     </Modal>
   );
 };

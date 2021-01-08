@@ -15,9 +15,14 @@ const History = () => {
   if (!history) {
     return (
       <div>
-        <Link to='/'>
-          <button className='btn-primary'>Home</button>
-        </Link>
+        <div className='nav-container'>
+          <Link to='/'>
+            <button className='custom-btn nav-btn'>Home</button>
+          </Link>
+          <Link to='/history'>
+            <button className='custom-btn nav-btn'>History</button>
+          </Link>
+        </div>
         <h5>
           You have no teams saved yet. Please complete a draft and then return
           to view your saved teams.
@@ -27,9 +32,14 @@ const History = () => {
   }
   return (
     <section>
-      <Link to='/'>
-        <button className='btn-primary'>Home</button>
-      </Link>
+      <div className='nav-container'>
+        <Link to='/'>
+          <button className='custom-btn nav-btn'>Home</button>
+        </Link>
+        <Link to='/history'>
+          <button className='custom-btn nav-btn'>History</button>
+        </Link>
+      </div>
       <h1>History</h1>
       <table>
         <thead>

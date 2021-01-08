@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from 'react-bootstrap/Table';
 
 const UserVisiblePlayers = ({ visiblePlayers, handleUserPick }) => {
   if (visiblePlayers.length < 1) {
@@ -9,10 +10,10 @@ const UserVisiblePlayers = ({ visiblePlayers, handleUserPick }) => {
     );
   }
   return (
-    <table>
+    <Table bordered responsive className='draft-table'>
       <thead>
         <tr>
-          <th>name</th>
+          <th>player</th>
           <th>position</th>
           <th>years active</th>
         </tr>
@@ -22,7 +23,12 @@ const UserVisiblePlayers = ({ visiblePlayers, handleUserPick }) => {
           const { id, name, position, year_from, year_to } = player;
           return (
             <tr key={id}>
-              <td onClick={() => handleUserPick(player)}>{name}</td>
+              <td
+                className='draft-player-name'
+                onClick={() => handleUserPick(player)}
+              >
+                {name}
+              </td>
               <td>{position}</td>
               <td>
                 {year_from}-{year_to}
@@ -31,7 +37,7 @@ const UserVisiblePlayers = ({ visiblePlayers, handleUserPick }) => {
           );
         })}
       </tbody>
-    </table>
+    </Table>
   );
 };
 

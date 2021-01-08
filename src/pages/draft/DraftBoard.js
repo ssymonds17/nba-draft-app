@@ -30,15 +30,17 @@ const DraftBoard = ({ handleUserPick }) => {
   }, [draftablePlayers]);
 
   return (
-    <section>
+    <section className='draft-board'>
       <header>
         <h3>draft board</h3>
+        <Positions positions={positions} filterByPosition={filterByPosition} />
       </header>
-      <Positions positions={positions} filterByPosition={filterByPosition} />
-      <UserVisiblePlayers
-        visiblePlayers={visiblePlayers}
-        handleUserPick={handleUserPick}
-      />
+      <article className='draft-table-container'>
+        <UserVisiblePlayers
+          visiblePlayers={visiblePlayers}
+          handleUserPick={handleUserPick}
+        />
+      </article>
     </section>
   );
 };

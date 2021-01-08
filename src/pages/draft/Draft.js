@@ -89,30 +89,30 @@ const Draft = ({ handleDraftClick }) => {
     updateIsUser();
   }, []);
   return (
-    <>
-      <div style={{ display: 'flex' }}>
-        <DraftBoard handleUserPick={handleUserPick} />
-        <DraftOrder />
-      </div>
-      <div style={{ display: 'flex' }}>
+    <main className='draft-main'>
+      <DraftBoard handleUserPick={handleUserPick} />
+      <div className='draft-rosters-container'>
         <SingleTeamPlayers team={userLocation && userLocation.city} />
         <ListOfOpponents />
       </div>
+      <DraftOrder />
       <Modal show={showStartModal} backdrop='static' keyboard={false}>
         <Modal.Body>
           <p>
-            The draft consists of one hundred players divided into twenty
-            players from each position: Point Guard (PG), Shooting Guard (SG),
-            Small Forward (SF), Power Foward (PF) and Center (C).
+            The draft consists of 100 players divided. There are 20 players from
+            each position: Point Guard (PG), Shooting Guard (SG), Small Forward
+            (SF), Power Foward (PF) and Center (C).
           </p>
           <p>
-            Each team is required to pick two players from each position and
-            will finish with ten players total with which they can compete with
-            the other nine teams.
+            You are limited to selecting 2 players from each position and will
+            finish with 10 players total on your roster.
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <button className='btn-primary' onClick={handleDraftStart}>
+          <button
+            className='modal-btn modal-btn-forwards'
+            onClick={handleDraftStart}
+          >
             Begin Draft
           </button>
         </Modal.Footer>
@@ -154,7 +154,7 @@ const Draft = ({ handleDraftClick }) => {
           </button>
         </Modal.Footer>
       </Modal>
-    </>
+    </main>
   );
 };
 
