@@ -110,7 +110,7 @@ code {
 
 /* Tables */
 .draft-table {
-  height: 39.5rem;
+  height: 35rem;
   display: block;
   margin-top: 2rem;
   overflow-y: scroll;
@@ -137,13 +137,24 @@ code {
   text-decoration: underline;
   cursor: pointer;
 }
+.scorelist-table td {
+  padding: 0.3rem;
+}
 .matchup-table {
   margin-top: 1.8rem;
   margin-left: 3rem;
   width: 90%;
 }
 .matchup-table td {
-  padding-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+.history-table {
+  margin-top: 3rem;
+  text-align: center;
+}
+.history-table th {
+  background-color: #367c3a;
+  color: white;
 }
 
 /* Nav Styling */
@@ -156,14 +167,6 @@ code {
   font-size: 1.5rem;
   text-transform: uppercase;
 }
-.history-table {
-  margin-top: 3rem;
-  text-align: center;
-}
-.history-table th {
-  background-color: #367c3a;
-  color: white;
-}
 
 /* Home Styling */
 .home-main {
@@ -171,7 +174,7 @@ code {
   text-align: center;
 }
 .home-main h1 {
-  padding-top: 4rem;
+  padding-top: 3rem;
 }
 .home-main p {
   font-size: 1.1rem;
@@ -180,7 +183,7 @@ code {
   padding-left: 20%;
 }
 .team-selection-header {
-  padding-top: 2.5rem;
+  padding-top: 2rem;
   text-align: center;
   text-transform: capitalize;
 }
@@ -241,7 +244,7 @@ code {
 }
 .user-squad-container li {
   list-style: none;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.1rem;
 }
 .draft-opponents-container {
   border: 2px solid black;

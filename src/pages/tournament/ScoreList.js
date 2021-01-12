@@ -29,7 +29,7 @@ const ScoreList = ({ opponentLocations, wins, losses, results, squads }) => {
           </h3>
         </header>
         <article>
-          <Table bordered responsive>
+          <Table bordered responsive className='scorelist-table'>
             <thead>
               <tr>
                 <th>Opponent</th>
