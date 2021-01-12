@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Table from 'react-bootstrap/Table';
 import { Modal } from 'react-bootstrap';
 
 const ScoreList = ({ opponentLocations, wins, losses, results, squads }) => {
@@ -21,13 +22,14 @@ const ScoreList = ({ opponentLocations, wins, losses, results, squads }) => {
   };
   return (
     <>
-      <section>
-        <article>
-          <h4>Score List</h4>
-          <h5>
+      <section className='scorelist-main'>
+        <header className='scorelist-header'>
+          <h3>
             Record: {wins} - {losses}
-          </h5>
-          <table>
+          </h3>
+        </header>
+        <article>
+          <Table bordered responsive>
             <thead>
               <tr>
                 <th>Opponent</th>
@@ -40,14 +42,19 @@ const ScoreList = ({ opponentLocations, wins, losses, results, squads }) => {
                 const { city } = location;
                 return (
                   <tr key={index}>
-                    <td onClick={() => handleClick(city)}>{city}</td>
+                    <td
+                      className='scorelist-team-name'
+                      onClick={() => handleClick(city)}
+                    >
+                      {city}
+                    </td>
                     <td>{results[index] ? results[index].isWin : ''}</td>
                     <td>{results[index] ? results[index].score : ''}</td>
                   </tr>
                 );
               })}
             </tbody>
-          </table>
+          </Table>
         </article>
       </section>
       <OpponentSquadModal
@@ -76,65 +83,95 @@ const OpponentSquadModal = (props) => {
           {props.currentSquad && props.currentSquad.city}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <p>
-          PG:{' '}
-          {props.currentSquad.PG.length > 0
-            ? props.currentSquad.PG[0].name
-            : ''}
-        </p>
-        <p>
-          SG:{' '}
-          {props.currentSquad.SG.length > 0
-            ? props.currentSquad.SG[0].name
-            : ''}
-        </p>
-        <p>
-          SF:{' '}
-          {props.currentSquad.SF.length > 0
-            ? props.currentSquad.SF[0].name
-            : ''}
-        </p>
-        <p>
-          PF:{' '}
-          {props.currentSquad.PF.length > 0
-            ? props.currentSquad.PF[0].name
-            : ''}
-        </p>
-        <p>
-          C:{' '}
-          {props.currentSquad.C.length > 0 ? props.currentSquad.C[0].name : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.PG.length > 1
-            ? props.currentSquad.PG[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.SG.length > 1
-            ? props.currentSquad.SG[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.SF.length > 1
-            ? props.currentSquad.SF[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.PF.length > 1
-            ? props.currentSquad.PF[1].name
-            : ''}
-        </p>
-        <p>
-          Reserve:{' '}
-          {props.currentSquad.C.length > 1 ? props.currentSquad.C[1].name : ''}
-        </p>
+      <Modal.Body className='opponent-squad-modal'>
+        <section style={{ display: 'flex' }}>
+          <article style={{ display: 'flex' }}>
+            <div>
+              <ul>
+                <li>PG:</li>
+                <li>SG:</li>
+                <li>SF:</li>
+                <li>PF:</li>
+                <li>C:</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  {props.currentSquad.PG.length > 0
+                    ? props.currentSquad.PG[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SG.length > 0
+                    ? props.currentSquad.SG[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SF.length > 0
+                    ? props.currentSquad.SF[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.PF.length > 0
+                    ? props.currentSquad.PF[0].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.C.length > 0
+                    ? props.currentSquad.C[0].name
+                    : '________________________________'}
+                </li>
+              </ul>
+            </div>
+          </article>
+          <article style={{ display: 'flex' }}>
+            <div>
+              <ul>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+                <li>Reserve:</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>
+                  {props.currentSquad.PG.length > 1
+                    ? props.currentSquad.PG[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SG.length > 1
+                    ? props.currentSquad.SG[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.SF.length > 1
+                    ? props.currentSquad.SF[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.PF.length > 1
+                    ? props.currentSquad.PF[1].name
+                    : '________________________________'}
+                </li>
+                <li>
+                  {props.currentSquad.C.length > 1
+                    ? props.currentSquad.C[1].name
+                    : '________________________________'}
+                </li>
+              </ul>
+            </div>
+          </article>
+        </section>
       </Modal.Body>
-      <Modal.Footer onClick={props.onHide}>Back</Modal.Footer>
+      <Modal.Footer>
+        <button className='modal-btn-back' onClick={props.onHide}>
+          Back
+        </button>
+      </Modal.Footer>
     </Modal>
   );
 };

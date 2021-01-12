@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 const UserVisiblePlayers = ({ visiblePlayers, handleUserPick }) => {
   if (visiblePlayers.length < 1) {
     return (
-      <section>
+      <section className='position-full'>
         <p>Two players have already been drafted at this position</p>
       </section>
     );

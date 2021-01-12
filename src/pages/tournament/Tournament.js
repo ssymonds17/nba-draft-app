@@ -134,23 +134,43 @@ const Tournament = () => {
   }, []);
   return (
     <>
-      <main>
-        <h2>Tournament</h2>
-        {results.length < 9 && (
-          <div>
-            {matchupIndex === 0 && !currentOpponent && (
-              <button onClick={getCurrentOpponent}>Go To First Game</button>
-            )}
-            {matchupIndex > 0 && userScore !== 0 && (
-              <button onClick={getCurrentOpponent}>Go To Next Game</button>
-            )}
-            {currentOpponent && userScore === 0 && (
-              <button id='run-game' onClick={runGame}>
-                Play Current Matchup
-              </button>
-            )}
-          </div>
-        )}
+      <main className='tournament-main'>
+        <header className='tournament-header'>
+          {results.length < 9 && (
+            <div>
+              {matchupIndex === 0 && !currentOpponent && (
+                <button
+                  className='tournament-btn-next'
+                  onClick={getCurrentOpponent}
+                >
+                  Begin First Game
+                </button>
+              )}
+              {matchupIndex > 0 && userScore !== 0 && (
+                <button
+                  className='tournament-btn-next'
+                  onClick={getCurrentOpponent}
+                >
+                  Go To Next Game
+                </button>
+              )}
+              {currentOpponent && userScore === 0 && (
+                <button
+                  className='tournament-btn-start'
+                  id='run-game'
+                  onClick={runGame}
+                >
+                  Play Current Matchup
+                </button>
+              )}
+            </div>
+          )}
+          {matchupIndex > 8 && (
+            <button className='tournament-btn-next' onClick={saveTeam}>
+              Save and Finish
+            </button>
+          )}
+        </header>
         <section style={{ display: 'flex' }}>
           <ScoreList
             squads={squads}
@@ -168,11 +188,6 @@ const Tournament = () => {
             opponentScore={opponentScore}
           />
         </section>
-        {matchupIndex > 8 && (
-          <section>
-            <button onClick={saveTeam}>Save and Finish</button>
-          </section>
-        )}
       </main>
       <Modal show={showModal} backdrop='static' keyboard={false}>
         <Modal.Body>
@@ -180,7 +195,12 @@ const Tournament = () => {
           drafted from the History page.
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={() => window.location.reload()}>Play Again</button>
+          <button
+            className='modal-btn-forwards'
+            onClick={() => window.location.reload()}
+          >
+            Play Again
+          </button>
         </Modal.Footer>
       </Modal>
     </>

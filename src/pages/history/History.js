@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Table from 'react-bootstrap/Table';
 
 const History = () => {
   const [history, setHistory] = useState(null);
@@ -40,8 +41,10 @@ const History = () => {
           <button className='custom-btn nav-btn'>History</button>
         </Link>
       </div>
-      <h1>History</h1>
-      <table>
+      <header className='history-header'>
+        <h1>Previous Drafts</h1>
+      </header>
+      <Table responsive bordered className='history-table'>
         <thead>
           <tr>
             <th>Saved</th>
@@ -78,7 +81,7 @@ const History = () => {
             );
           })}
         </tbody>
-      </table>
+      </Table>
     </section>
   );
 };
